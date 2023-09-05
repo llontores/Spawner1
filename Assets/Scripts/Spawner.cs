@@ -4,30 +4,22 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Enemy _enemy;
+    [SerializeField] private GoToTarget _enemy;
     [SerializeField] private int _delay;
+    [SerializeField] private Transform _target;
+    
+    private GoToTarget _spawnedObject;
+    private float _elapsedTime;
 
-    private Transform[] _spawners;
-
-    private void Start()
+    private void Update()
     {
-        _spawners = GetComponentsInChildren<Transform>();
-        StartCoroutine(Spawn());
-    }
+        _elapsedTime += Time.deltaTime;
 
-    private IEnumerator Spawn()
-    {
-        WaitForSeconds delay = new WaitForSeconds(_delay);
-
-        for (int i = 1; i < _spawners.Length + 1; i++)
+        if(_elapsedTime >= _delay)
         {
-            if (i == _spawners.Length)
-            {
-                i = 1;
-            }
-
-            Instantiate(_enemy, _spawners[i].position, Quaternion.identity);
-            yield return delay;
+            _spawnedObject = Instantiate(_enemy, transform.position, Quaternion.identity);
+            _spawnedObject.SetTarget(_target);
+            _elapsedTime = 0;
         }
     }
 }
