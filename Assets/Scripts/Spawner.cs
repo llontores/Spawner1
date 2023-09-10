@@ -11,6 +11,11 @@ public class Spawner : MonoBehaviour
     private GoToTarget _spawnedObject;
     private float _elapsedTime;
 
+    private void Start()
+    {
+        StartCoroutine(CopyObjects());
+    }
+
     private IEnumerator CopyObjects()
     {
         WaitForSeconds delay = new WaitForSeconds(_delay);
