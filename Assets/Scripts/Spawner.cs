@@ -22,4 +22,16 @@ public class Spawner : MonoBehaviour
             _elapsedTime = 0;
         }
     }
+
+    private IEnumerator CopyObjects()
+    {
+        WaitForSeconds delay = new WaitForSeconds(_delay);
+        while (true)
+        {
+            _spawnedObject = Instantiate(_enemy, transform.position, Quaternion.identity);
+            _spawnedObject.SetTarget(_target);
+
+            yield return delay;
+        }
+    }
 }
