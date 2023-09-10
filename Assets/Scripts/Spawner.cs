@@ -11,21 +11,10 @@ public class Spawner : MonoBehaviour
     private GoToTarget _spawnedObject;
     private float _elapsedTime;
 
-    private void Update()
-    {
-        _elapsedTime += Time.deltaTime;
-
-        if(_elapsedTime >= _delay)
-        {
-            _spawnedObject = Instantiate(_enemy, transform.position, Quaternion.identity);
-            _spawnedObject.SetTarget(_target);
-            _elapsedTime = 0;
-        }
-    }
-
     private IEnumerator CopyObjects()
     {
         WaitForSeconds delay = new WaitForSeconds(_delay);
+
         while (true)
         {
             _spawnedObject = Instantiate(_enemy, transform.position, Quaternion.identity);
